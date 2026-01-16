@@ -5,6 +5,17 @@ import { Document } from "flexsearch";
 import "dotenv/config";
 import crypto from "crypto";
 
+// Validate required environment variables
+const requiredEnvVars = ['NOTION_TOKEN', 'OLLAMA_URL', 'OLLAMA_MODEL'];
+const missingVars = requiredEnvVars.filter(varName => !process.env[varName]);
+
+if (missingVars.length > 0) {
+  console.error('❌ Missing required environment variables:');
+  missingVars.forEach(varName => console.error(`   - ${varName}`));
+  console.error('\nPlease set these variables in your .env file.');
+  process.exit(1);
+}
+
 const notion = new Client({ auth: process.env.NOTION_TOKEN });
 const app = express();
 app.use(express.json());
