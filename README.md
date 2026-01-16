@@ -24,19 +24,25 @@ This repository implements a minimal, production-oriented foundation for asking 
 
 ---
 
-## Environment variables
+## Environment variables setup
 
-Create a `.env` file in the project root with the following variables:
+1. Copy the example environment file to create your local configuration:
 
-```
-NOTION_TOKEN=secret_xxx
-OLLAMA_URL=http://localhost:11434   # or https://<your-ngrok>.ngrok.app
-OLLAMA_MODEL=llama3.1
-PORT=3000
-COMMA_SEPARATED_PAGE_IDS=pageid1,pageid2   # optional initial pages to auto-index
+```bash
+cp .env.example .env
 ```
 
-**Security note:** keep `NOTION_TOKEN` private and never commit `.env` to source control.
+2. Open `.env` and configure the following variables with your actual values:
+
+```
+NOTION_TOKEN=secret_xxx                    # Your Notion integration token
+OLLAMA_URL=http://localhost:11434          # or https://<your-ngrok>.ngrok.app
+OLLAMA_MODEL=llama3.1                      # The Ollama model to use
+PORT=3000                                   # Server port
+COMMA_SEPARATED_PAGE_IDS=pageid1,pageid2   # (Optional) Initial pages to auto-index
+```
+
+**Security note:** The `.env` file contains sensitive information like your Notion token and page IDs. This file is already included in `.gitignore` to prevent accidentally exposing these credentials. Never commit `.env` to source control.
 
 ---
 
