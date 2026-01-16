@@ -205,15 +205,23 @@ app.post("/ask", async (req, res) => {
 
 const PORT = process.env.PORT || 3030;
 app.listen(PORT, async () => {
-  console.log(`Bridge listening on http://localhost:${PORT}`);
+  console.log(`\n🚀 Bridge listening on http://localhost:${PORT}\n`);
+  
   // On startup, optionally auto-index pages supplied in env
   const envPages = (process.env.COMMA_SEPARATED_PAGE_IDS || "").split(",").filter(Boolean);
   if (envPages.length) {
     console.log("Auto-indexing pages from COMMA_SEPARATED_PAGE_IDS...");
     await indexNotionPages(envPages);
-    console.log("Indexing done.");
+    console.log("Indexing done.\n");
   } else {
-    console.log("No pages provided for auto-index (set COMMA_SEPARATED_PAGE_IDS) — call /reindex with pageIds or POST to /reindex.");
+    console.log("No pages provided for auto-index (set COMMA_SEPARATED_PAGE_IDS)\n");
   }
+
+  // Print helpful curl commands
+  console.log("📋 Quick Start Commands:\n");
+  console.log("Reindex Notion pages:");
+  console.log(`  curl -X POST http://localhost:${PORT}/reindex -H "Content-Type: application/json" -d '{"pageIds":["YOUR_PAGE_ID_HERE"]}'\n`);
+  console.log("Ask a question:");
+  console.log(`  curl -X POST http://localhost:${PORT}/ask -H "Content-Type: application/json" -d '{"query":"YOUR_QUESTION_HERE","topK":5}'\n`);
 });
 
